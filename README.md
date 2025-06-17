@@ -148,6 +148,3 @@ The frontend will start on `http://localhost:3000`.
     - The `API_URL` in `frontend/frontend/app/page.tsx` is correct.
     - CORS is properly configured in the backend.
 
-## License
-
-This project is licensed under the MIT License.
