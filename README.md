@@ -1,159 +1,6 @@
-<!-- # Task Manager
+# 📝 Task Manager
 
-A full-stack Task Manager application built with Next.js (frontend) and Express.js (backend) using PostgreSQL for data storage.
-
-## Project Structure
-
-- **Frontend**: Next.js app located in `frontend/frontend/`
-- **Backend**: Express.js server located in `backend/`
-- **Database**: PostgreSQL database named `task_manager`
-
-## Prerequisites
-
-- Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
-- npm or yarn
-
-## Setup
-
-### 1. Clone the Repository
-
-```bash
-git clone <repository-url>
-cd task-manager
-```
-
-### 2. Backend Setup
-
-#### Install Dependencies
-
-```bash
-cd backend
-npm install
-```
-
-#### Configure PostgreSQL
-
-- Ensure PostgreSQL is installed and running.
-- Create a database named `task_manager`:
-  ```bash
-  createdb task_manager
-  ```
-- Initialize the database schema:
-  ```bash
-  psql -d task_manager -f schema.sql
-  ```
-
-#### Configure Database Connection
-
-- The backend uses the `pg` package to connect to PostgreSQL.
-- The connection settings are in `backend/db.js`. By default, it uses:
-  - User: `postgres`
-  - Host: `localhost`
-  - Database: `task_manager`
-  - Password: `postgres`
-  - Port: `5432`
-- You can customize these settings by creating a `.env` file in the `backend` directory with the following content:
-  ```
-  DB_USER=postgres
-  DB_HOST=localhost
-  DB_NAME=task_manager
-  DB_PASSWORD=postgres
-  DB_PORT=5432
-  ```
-- Adjust the values as needed for your environment.
-
-#### Start the Backend Server
-
-```bash
-npm run dev
-```
-
-The server will start on `http://localhost:3001`.
-
-### 3. Frontend Setup
-
-#### Install Dependencies
-
-```bash
-cd frontend/frontend
-npm install
-```
-
-#### Configure API URL
-
-- The frontend connects to the backend API at `http://localhost:3001`.
-- If your backend runs on a different port or host, update the `API_URL` in `frontend/frontend/app/page.tsx`.
-
-#### Start the Frontend Server
-
-```bash
-npm run dev
-```
-
-The frontend will start on `http://localhost:3000`.
-
-## Running the Application
-
-1. **Start the Backend:**
-   - Navigate to the `backend` directory and run:
-     ```bash
-     npm run dev
-     ```
-   - The backend server will start on `http://localhost:3001`.
-
-2. **Start the Frontend:**
-   - Navigate to the `frontend/frontend` directory and run:
-     ```bash
-     npm run dev
-     ```
-   - The frontend will start on `http://localhost:3000`.
-
-3. **Access the Application:**
-   - Open your browser and go to `http://localhost:3000`.
-   - You should see the Task Manager interface where you can add, toggle, and delete tasks.
-
-## Making Changes
-
-### Backend Changes
-
-- The backend is built with Express.js. The main files are:
-  - `backend/index.js`: Entry point and server setup.
-  - `backend/routes/tasks.js`: API routes for task operations.
-  - `backend/db.js`: PostgreSQL connection configuration.
-  - `backend/schema.sql`: Database schema.
-
-- To modify the API or database logic, edit the corresponding files and restart the backend server.
-
-### Frontend Changes
-
-- The frontend is built with Next.js. The main files are:
-  - `frontend/frontend/app/page.tsx`: Main page component with task management logic.
-  - `frontend/frontend/app/globals.css`: Global styles.
-  - `frontend/frontend/app/layout.tsx`: Root layout component.
-
-- To modify the UI or frontend logic, edit the corresponding files. The changes will be reflected immediately due to hot reloading.
-
-## Troubleshooting
-
-- **Backend Issues:**
-  - If the backend fails to start, check the console for errors. Common issues include:
-    - PostgreSQL not running.
-    - Incorrect database credentials.
-    - Port 3001 already in use (use `lsof -i :3001` to find and kill the process).
-
-- **Frontend Issues:**
-  - If the frontend fails to connect to the backend, check:
-    - The backend server is running.
-    - The `API_URL` in `frontend/frontend/app/page.tsx` is correct.
-    - CORS is properly configured in the backend.
- -->
-
-
-
-# Task Manager
-
-A full-stack Task Manager application built with **Next.js** (frontend), **Express.js** (backend), and **PostgreSQL** (database).
+A full-stack **Task Manager** application built with **Next.js** (frontend), **Express.js** (backend), and **PostgreSQL** (database). It allows users to create, complete, and delete tasks through a responsive web UI.
 
 ---
 
@@ -174,8 +21,21 @@ task-manager/
     └── app/globals.css        # Styling
 ```
 
-> 🧠 **Rationale**:  
-> Keeping frontend and backend separate makes deployment and development easier. Clear separation of concerns with dedicated route, schema, and UI logic files.
+---
+
+## 🔍 Why This Project Structure?
+
+The frontend and backend are organized as independent modules to simplify development, testing, and deployment. This modular design promotes **scalability**, allows easy **CI/CD integration**, and makes it possible to deploy the backend separately (e.g., on Render/Railway) and the frontend on platforms like Vercel.
+
+---
+
+## ⚙️ How Frontend and Backend Are Separated
+
+- **Frontend (Next.js)** handles routing, UI, and API calls.
+- **Backend (Express)** provides RESTful APIs and communicates with PostgreSQL.
+- Communication happens via HTTP requests from frontend to backend at `http://localhost:3001/api/tasks`.
+
+This separation ensures clean, maintainable code and allows independent upgrades.
 
 ---
 
@@ -193,8 +53,6 @@ All API endpoints return JSON and use base URL: `http://localhost:3001/api/tasks
 ]
 ```
 
----
-
 ### 🔹 2. Add New Task
 - **Endpoint**: `POST /api/tasks`
 - **Request Body**:
@@ -206,16 +64,12 @@ All API endpoints return JSON and use base URL: `http://localhost:3001/api/tasks
 { "id": 3, "title": "Learn SQL", "completed": false }
 ```
 
----
-
 ### 🔹 3. Toggle Task Completion
 - **Endpoint**: `PUT /api/tasks/:id`
 - **Response**:
 ```json
 { "message": "Task updated" }
 ```
-
----
 
 ### 🔹 4. Delete Task
 - **Endpoint**: `DELETE /api/tasks/:id`
@@ -234,19 +88,16 @@ git clone https://github.com/setiyaayush/task-manager.git
 cd task-manager
 ```
 
-### 2. Start PostgreSQL
-Make sure PostgreSQL is installed and running.
+### 2. Setup PostgreSQL
+
+Ensure PostgreSQL is installed and running.
 
 ```bash
 createdb task_manager
 psql -d task_manager -f backend/schema.sql
 ```
 
-> Default DB credentials:
-> - User: `postgres`
-> - Password: `postgres`
-
-If needed, configure via `.env` file in `/backend/`:
+If needed, create a `.env` file in `backend/`:
 ```
 DB_USER=postgres
 DB_HOST=localhost
@@ -257,50 +108,76 @@ DB_PORT=5432
 
 ---
 
-### 3. Run Backend
+### 3. Run the Backend
 
 ```bash
 cd backend
 npm install
 npm run dev
-# Server at http://localhost:3001
+# Server runs at http://localhost:3001
 ```
 
 ---
 
-### 4. Run Frontend
+### 4. Run the Frontend
 
 ```bash
 cd frontend/frontend
 npm install
 npm run dev
-# App at http://localhost:3000
+# App runs at http://localhost:3000
 ```
 
 Make sure `API_URL` in `frontend/frontend/app/page.tsx` is set to `http://localhost:3001`.
 
 ---
 
-## 🌍 Optional Deployment
+## ❗ How Errors and Edge Cases Are Handled
 
-You can deploy:
-- **Frontend** on [Vercel](https://vercel.com/)
-- **Backend** on [Render](https://render.com/) or [Railway](https://railway.app/)
+- API routes return proper status codes (`400`, `404`, `500`) with descriptive messages.
+- Input validation checks for empty task titles or malformed requests.
+- Try-catch blocks are used to handle DB or server errors gracefully.
+- Logs are printed to the console for debugging.
 
-Add environment variables to each host for DB access (same as in `.env`).
+> 💡 In production, you'd integrate Winston or Morgan for structured logging.
 
 ---
 
-## 🧪 Testing & Improvements
+## 🔐 What Security Features I'd Add in Production
 
-You can extend the app by:
-- Adding form validation
-- Adding user login (JWT)
-- Writing API tests with Jest/Supertest
-- Using Prisma/Knex for DB abstraction
+- ✅ Input sanitization using libraries like `express-validator`
+- ✅ Rate limiting with `express-rate-limit` to prevent abuse
+- ✅ Enable CORS with proper origin restrictions
+- ✅ Use HTTPS for secure communication
+- ✅ Authentication (JWT/session-based) to manage users
+- ✅ Escape SQL injections with parameterized queries (already handled with `pg`)
+
+---
+
+## ⏳ What I'd Improve With 1 Full Day
+
+If given one more day, I would:
+- ✅ Add user authentication (sign-up/login) with hashed passwords
+- ✅ Build a dashboard with user-specific tasks
+- ✅ Implement optimistic UI for better UX
+- ✅ Add unit tests using Jest for APIs
+- ✅ Deploy the full-stack app on Vercel + Render with live link
+
+---
+
+## 🌍 Optional Deployment
+
+- **Frontend** can be deployed on [Vercel](https://vercel.com/)
+- **Backend** can be deployed on [Render](https://render.com/) or [Railway](https://railway.app/)
+
+Update environment variables and CORS rules for deployed URLs.
 
 ---
 
 ## 📜 License
 
-MIT – free to use and modify.
+This project is open-source under the **MIT License** – feel free to use and modify.
+
+---
+
+## 🙌 Thanks for checking it out!
