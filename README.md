@@ -1,4 +1,4 @@
-# Task Manager
+<!-- # Task Manager
 
 A full-stack Task Manager application built with Next.js (frontend) and Express.js (backend) using PostgreSQL for data storage.
 
@@ -147,4 +147,160 @@ The frontend will start on `http://localhost:3000`.
     - The backend server is running.
     - The `API_URL` in `frontend/frontend/app/page.tsx` is correct.
     - CORS is properly configured in the backend.
+ -->
 
+
+
+# Task Manager
+
+A full-stack Task Manager application built with **Next.js** (frontend), **Express.js** (backend), and **PostgreSQL** (database).
+
+---
+
+## 📁 Project Structure
+
+```
+task-manager/
+│
+├── backend/                   # Express backend
+│   ├── routes/tasks.js        # API routes (CRUD)
+│   ├── db.js                  # PostgreSQL connection
+│   ├── index.js               # App entry point
+│   └── schema.sql             # DB schema setup
+│
+└── frontend/frontend/         # Next.js frontend
+    ├── app/page.tsx           # Main UI component
+    ├── app/layout.tsx         # Layout
+    └── app/globals.css        # Styling
+```
+
+> 🧠 **Rationale**:  
+> Keeping frontend and backend separate makes deployment and development easier. Clear separation of concerns with dedicated route, schema, and UI logic files.
+
+---
+
+## 🚀 API Documentation
+
+All API endpoints return JSON and use base URL: `http://localhost:3001/api/tasks`
+
+### 🔹 1. Get All Tasks
+- **Endpoint**: `GET /api/tasks`
+- **Response**:
+```json
+[
+  { "id": 1, "title": "Read book", "completed": false },
+  { "id": 2, "title": "Buy groceries", "completed": true }
+]
+```
+
+---
+
+### 🔹 2. Add New Task
+- **Endpoint**: `POST /api/tasks`
+- **Request Body**:
+```json
+{ "title": "Learn SQL" }
+```
+- **Response**:
+```json
+{ "id": 3, "title": "Learn SQL", "completed": false }
+```
+
+---
+
+### 🔹 3. Toggle Task Completion
+- **Endpoint**: `PUT /api/tasks/:id`
+- **Response**:
+```json
+{ "message": "Task updated" }
+```
+
+---
+
+### 🔹 4. Delete Task
+- **Endpoint**: `DELETE /api/tasks/:id`
+- **Response**:
+```json
+{ "message": "Task deleted" }
+```
+
+---
+
+## 🧰 Steps to Run Locally
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/setiyaayush/task-manager.git
+cd task-manager
+```
+
+### 2. Start PostgreSQL
+Make sure PostgreSQL is installed and running.
+
+```bash
+createdb task_manager
+psql -d task_manager -f backend/schema.sql
+```
+
+> Default DB credentials:
+> - User: `postgres`
+> - Password: `postgres`
+
+If needed, configure via `.env` file in `/backend/`:
+```
+DB_USER=postgres
+DB_HOST=localhost
+DB_NAME=task_manager
+DB_PASSWORD=postgres
+DB_PORT=5432
+```
+
+---
+
+### 3. Run Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+# Server at http://localhost:3001
+```
+
+---
+
+### 4. Run Frontend
+
+```bash
+cd frontend/frontend
+npm install
+npm run dev
+# App at http://localhost:3000
+```
+
+Make sure `API_URL` in `frontend/frontend/app/page.tsx` is set to `http://localhost:3001`.
+
+---
+
+## 🌍 Optional Deployment
+
+You can deploy:
+- **Frontend** on [Vercel](https://vercel.com/)
+- **Backend** on [Render](https://render.com/) or [Railway](https://railway.app/)
+
+Add environment variables to each host for DB access (same as in `.env`).
+
+---
+
+## 🧪 Testing & Improvements
+
+You can extend the app by:
+- Adding form validation
+- Adding user login (JWT)
+- Writing API tests with Jest/Supertest
+- Using Prisma/Knex for DB abstraction
+
+---
+
+## 📜 License
+
+MIT – free to use and modify.
